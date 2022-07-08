@@ -1,0 +1,238 @@
+/* 
+    dark theme poggers
+*/
+
+.root{
+    baseColor: #424242;
+    
+    -fx-background-color: baseColor;
+
+    baseDark: derive(baseColor, -30%);
+    baseDarkLight: derive(baseColor, -35%);
+    baseDarkMid: derive(baseColor, -45%);
+
+    baseText: #ffffff;
+    baseTextLight: derive(baseText, -15%);
+    baseTextMid: derive(baseText, -25%);
+
+    -fx-accent: #2c6bc9;
+}
+
+
+/* ---------- Button, Textfield, ComboBox, ContextMenu ---------- */
+.button,
+.text-field,
+.combo-box-base,
+.context-menu,
+.combo-box .combo-box-popup .list-view, .combo-box .combo-box-popup .list-cell {
+    -fx-background-color: baseDark;
+    -fx-text-fill: baseText;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-highlight-fill: rgb(80, 80, 80);
+}
+.button:hover,
+.combo-box-base:hover,
+.combo-box .combo-box-popup .list-cell:hover {
+    -fx-background-color: baseDarkLight;
+}
+.button:focused,
+.text-field:focused,
+.combo-box-base:focused {
+    -fx-effect: dropshadow(gaussian, -fx-accent, 3, 0, 0, 0);
+}
+.button:pressed,
+.combo-box-base:pressed {
+    -fx-background-color: baseDarkMid;
+    -fx-effect: dropshadow(gaussian, -fx-accent, 3, 0, 0, 0);
+}
+.cell{
+    -fx-text-fill: baseText;
+}
+/* ---------------------------- */
+
+
+/* ---------- Label ---------- */
+.label{
+    -fx-text-fill: baseText;
+    -fx-effect: dropshadow(gaussian, baseDark, 3, 0, 0, 0);
+}
+/* ---------------------------- */
+
+
+/* ---------- Card Control ---------- */
+.card-tile {
+    -fx-padding: 12;
+}
+.card-tile > VBox {
+    -fx-pref-width: 200;
+    -fx-pref-height: 200;
+    -fx-background-color: baseDark;
+    -fx-padding: 5 1 0 1;
+    -fx-background-radius: 4;
+    -fx-effect: dropshadow(gaussian, baseDark, 5, 0, 0, 0);
+    -fx-alignment: TOP-center;
+}
+.card-tile .label {
+    -fx-text-alignment: center;
+    -fx-text-fill: baseText;
+    -fx-padding: 12;
+    -fx-wrap-text: true;
+}
+.card-tile:hover > VBox {
+    -fx-background-color: baseDarkLight;
+    -fx-effect: dropshadow(gaussian, baseDarkLight, 5, 0, 0, 0);
+}
+.card-tile:pressed > VBox {
+    -fx-background-color: baseDarkMid;
+    -fx-effect: dropshadow(gaussian, baseDarkMid, 5, 0, 0, 0);
+}
+/* ---------------------------- */
+
+
+/* ---------- Titled Pane ---------- */
+.titled-pane {
+    -fx-text-fill: baseText;
+    -fx-font-weight: BOLD;
+    -fx-alignment: CENTER;
+}
+.titled-pane > .title {
+    -fx-background-color: baseDark;
+    -fx-background-radius: 5 5 0 0;
+}
+.titled-pane > .content {
+    -fx-background-radius: 0 0 5 5;
+    -fx-border-radius: 0 0 5 5;
+    -fx-font-weight: Normal;
+    -fx-border-color: baseDarkLight;
+    -fx-background-color:  baseColor;
+    -fx-border-radius: 0 0 5 5;
+}
+/* ---------------------------- */
+
+
+/* ---------- Tab Pane ---------- */
+.tab-pane:top *.tab-header-area {
+    -fx-background-color: #363636;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-padding: 5 2 0 0;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+.tab-pane{
+    -fx-tab-min-height:30px;
+    -fx-tab-min-width:90px;
+}
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab{
+    -fx-background-color: baseDark;
+}
+.tab-pane .tab:selected{
+    -fx-background-color: baseColor;
+}
+.tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
+    -fx-border-width: none;
+    -fx-border-color: none;
+}
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: baseTextMid;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.tab:hover .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: baseText;
+}
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: baseText;
+}
+/* ---------------------------- */
+
+
+/* ---------- Scroll pane ---------- */
+.scroll-pane {
+    -fx-background-color:transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+#statusHBox .label{
+    -fx-text-fill: baseText;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color : baseColor;
+    -fx-border-color :transparent;
+    -fx-background-radius : .0em;
+    -fx-border-radius :2.0em;
+}
+.scroll-bar:horizontal .increment-button ,
+.scroll-bar:horizontal .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 0.0 7.0 0.0;
+}
+.scroll-bar:vertical .increment-button ,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color :transparent;
+    -fx-background-radius : 0.0em;
+    -fx-padding :0.0 7.0 0.0 0.0;
+}
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.15em 0.0;
+}
+.scroll-bar:vertical .increment-arrow,
+.scroll-bar:vertical .decrement-arrow{
+    -fx-shape : " ";
+    -fx-padding :0.0 0.15em;
+}
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color : baseDarkLight;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+.scroll-bar:horizontal .thumb:hover,
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color : baseDarkLight;
+    -fx-background-insets : 2.0, 0.0, 0.0;
+    -fx-background-radius : 2.0em;
+}
+.scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+/* ---------------------------- */
+
+
+/* ---------- Menu Bar -------
+            PropertiesHelper.setRlDirectory(rlDirectory);--- */
+.menu-bar {
+    -fx-background-color: baseDark ;
+    -fx-border-width: 2.0;
+}
+.menu-bar .label {
+    -fx-font-size: 14.0 pt;
+    -fx-font-family: "Bookman Old Style";
+    -fx-text-fill: baseText;
+    -fx-font-weight: bold;
+    -fx-padding: 10.0px;
+}
+.menu-bar .menu-button:hover, .menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-background: baseDarkLight;
+    -fx-text-fill: baseText;
+}
+.menu-item .label{
+    -fx-font-size: 14.0 pt;
+    -fx-text-fill: baseText;
+}
+/* ---------------------------- */
+
+PropertiesHelper.setRlDirectory(rlDirectory);
