@@ -67,13 +67,6 @@ public class PropUtil {
         properties.store(new FileWriter(propertiesFile), "Rocket League Map Loader");
     }
 
-    /*private Properties generateProperties() {
-        Properties properties = new Properties();
-        properties.put("rldir", rldir.getValue());
-        properties.put("theme", theme.getValue());
-        properties.put("language", language.getValue());
-        return properties;
-    }*/
     private PropUtil() {
 
     }
