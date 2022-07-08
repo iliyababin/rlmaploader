@@ -4,8 +4,6 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 
 import java.text.MessageFormat;
 import java.util.*;
@@ -16,7 +14,9 @@ import java.util.concurrent.Callable;
  */
 public final class I18N {
 
-    /** the current selected Locale. */
+    /**
+     * the current selected Locale.
+     */
     private static final ObjectProperty<Locale> locale;
 
     static {
@@ -32,12 +32,12 @@ public final class I18N {
     public static List<Locale> getSupportedLocales() {
         return new ArrayList<>(Arrays.asList(
                 new Locale("en", "US"),
-                new Locale("ru","RU")));
+                new Locale("ru", "RU")));
     }
 
-    public static Map<String, Locale> getSupportedLocalesMap(){
+    public static Map<String, Locale> getSupportedLocalesMap() {
         Map<String, Locale> localeMap = new HashMap<String, Locale>();
-        for(Locale item : I18N.getSupportedLocales()){
+        for (Locale item : I18N.getSupportedLocales()) {
             localeMap.put(item.toString(), item);
         }
         return localeMap;
@@ -46,11 +46,11 @@ public final class I18N {
     /**
      * get the default locale. This is the systems default if contained in the supported locales, english otherwise.
      *
-     * @return
+     * @return default locale
      */
     public static Locale getDefaultLocale() {
         Locale sysDefault = Locale.getDefault();
-        return getSupportedLocales().contains(sysDefault) ? sysDefault : new Locale("en","US");
+        return getSupportedLocales().contains(sysDefault) ? sysDefault : new Locale("en", "US");
     }
 
     public static Locale getLocale() {
@@ -70,10 +70,8 @@ public final class I18N {
      * gets the string with the given key from the resource bundle for the current locale and uses it as first argument
      * to MessageFormat.format, passing in the optional args and returning the result.
      *
-     * @param key
-     *         message key
-     * @param args
-     *         optional arguments for the message
+     * @param key  message key
+     * @param args optional arguments for the message
      * @return localized formatted string
      */
     public static String get(final String key, final Object... args) {
@@ -84,8 +82,7 @@ public final class I18N {
     /**
      * creates a String binding to a localized String for the given message bundle key
      *
-     * @param key
-     *         key
+     * @param key key
      * @return String binding
      */
     public static StringBinding createStringBinding(final String key, Object... args) {
@@ -95,52 +92,10 @@ public final class I18N {
     /**
      * creates a String Binding to a localized String that is computed by calling the given func
      *
-     * @param func
-     *         function called on every change
+     * @param func function called on every change
      * @return StringBinding
      */
     public static StringBinding createStringBinding(Callable<String> func) {
         return Bindings.createStringBinding(func, locale);
-    }
-
-    /**
-     * creates a bound Label whose value is computed on language change.
-     *
-     * @param func
-     *         the function to compute the value
-     * @return Label
-     */
-    public static Label labelForValue(Callable<String> func) {
-        Label label = new Label();
-        label.textProperty().bind(createStringBinding(func));
-        return label;
-    }
-
-    /**
-     * creates a bound Button for the given resourcebundle key
-     *
-     * @param key
-     *         ResourceBundle key
-     * @param args
-     *         optional arguments for the message
-     * @return Button
-     */
-    public static Button buttonForKey(final String key, final Object... args) {
-        Button button = new Button();
-        button.textProperty().bind(createStringBinding(key, args));
-        return button;
-    }
-
-
-    private I18N() {
-
-    }
-
-    public static I18N getInstance() {
-        return I18NHolder.INSTANCE;
-    }
-
-    private static class I18NHolder {
-        private static final I18N INSTANCE = new I18N();
     }
 }
