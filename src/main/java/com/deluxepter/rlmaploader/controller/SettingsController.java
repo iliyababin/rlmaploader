@@ -1,10 +1,15 @@
 package com.deluxepter.rlmaploader.controller;
 
+import com.deluxepter.rlmaploader.common.Configuration;
+import com.deluxepter.rlmaploader.model.Theme;
 import com.deluxepter.rlmaploader.util.I18N;
-import com.deluxepter.rlmaploader.util.PropUtil;
+import com.deluxepter.rlmaploader.util.ThemeManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -15,59 +20,49 @@ import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
     @FXML
-    private TitledPane generalTitledPane;
-    @FXML
     private TextField rldirTextField;
+
     @FXML
-    private ComboBox themeComboBox;
+    private ComboBox<Theme> themeComboBox;
+
     @FXML
     private ComboBox<Locale> languageComboBox;
-    @FXML
-    private Label themeLabel;
-    @FXML
-    private Label languageLabel;
-    @FXML
-    private Label rlInstallFolderLabel;
+
+    private ResourceBundle resources;
+    private Configuration config;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        themeLabel.textProperty().bind(I18N.createStringBinding("theme"));
-        languageLabel.textProperty().bind(I18N.createStringBinding("language"));
-        rlInstallFolderLabel.textProperty().bind(I18N.createStringBinding("rlinstallfolder"));
-        generalTitledPane.textProperty().bind(I18N.createStringBinding("General"));
-
-        rldirTextField.textProperty().bind(PropUtil.getInstance().propertiesMapProperty().valueAt("rldir"));
-
+        this.resources = resourceBundle;
+        this.config = Configuration.getInstance();
+        rldirTextField.textProperty().bind(config.rlDirectoryProperty());
         languageComboBox.setValue(I18N.getLocale());
-        for (Locale locale : I18N.getSupportedLocales()) {
-            languageComboBox.getItems().add(locale);
-        }
+        themeComboBox.setValue(ThemeManager.getTheme());
+        languageComboBox.setItems(I18N.getSupportedLocales());
+        themeComboBox.setItems(ThemeManager.getSupportedThemes());
     }
 
     @FXML
-    private void setRldir() {
+    private void setRlDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(new Stage());
         try {
-            PropUtil.getInstance().getPropertiesMap().put("rldir", directory.getAbsolutePath());
+            config.setRlDirectory(directory.getAbsolutePath());
+            new File(config.getMapsDirectory()).mkdirs();
+        } catch (NullPointerException e) {
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK);
-            alert.show();
+            new Alert(Alert.AlertType.ERROR, e.getMessage(), ButtonType.OK).show();
         }
     }
 
     @FXML
     private void setLanguage() {
-        String string = languageComboBox.getValue().toString();
-        String[] parts = string.split("_");
-        Locale newLocale = new Locale(parts[0], parts[1]);
-        I18N.setLocale(newLocale);
-        PropUtil.getInstance().getPropertiesMap().put("language", newLocale.getLanguage());
-        PropUtil.getInstance().getPropertiesMap().put("country", newLocale.getCountry());
+        I18N.setLocale(languageComboBox.getValue());
+        new Alert(Alert.AlertType.INFORMATION, resources.getString("dialog.restart.language"), ButtonType.OK).show();
     }
 
     @FXML
     private void setTheme() {
-
+        ThemeManager.setTheme(themeComboBox.getValue());
     }
 }

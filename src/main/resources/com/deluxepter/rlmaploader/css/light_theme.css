@@ -1,17 +1,17 @@
-/* 
+/*
     dark theme poggers
 */
 
 .root{
-    baseColor: #424242;
-    
+    baseColor: white;
+
     -fx-background-color: baseColor;
 
     baseDark: derive(baseColor, -30%);
     baseDarkLight: derive(baseColor, -35%);
     baseDarkMid: derive(baseColor, -45%);
 
-    baseText: #ffffff;
+    baseText: #000000;
     baseTextLight: derive(baseText, -15%);
     baseTextMid: derive(baseText, -25%);
 
@@ -33,7 +33,7 @@
 }
 .button:hover,
 .combo-box-base:hover,
-.combo-box .combo-box-popup .list-cell:hover {
+.combo-box .combo-box-popup .lizst-cell:hover {
     -fx-background-color: baseDarkLight;
 }
 .button:focused,
@@ -49,6 +49,11 @@
 .cell{
     -fx-text-fill: baseText;
 }
+
+.button:default {
+    -fx-background-color: black;
+}
+
 /* ---------------------------- */
 
 
@@ -61,33 +66,50 @@
 
 
 /* ---------- Card Control ---------- */
-.card-tile {
+.card {
     -fx-padding: 12;
 }
-.card-tile > VBox {
-    -fx-pref-width: 200;
-    -fx-pref-height: 200;
+.card > VBox {
     -fx-background-color: baseDark;
     -fx-padding: 5 1 0 1;
     -fx-background-radius: 4;
     -fx-effect: dropshadow(gaussian, baseDark, 5, 0, 0, 0);
-    -fx-alignment: TOP-center;
 }
-.card-tile .label {
-    -fx-text-alignment: center;
+.card .label {
     -fx-text-fill: baseText;
     -fx-padding: 12;
     -fx-wrap-text: true;
 }
-.card-tile:hover > VBox {
-    -fx-background-color: baseDarkLight;
+.card:hover > VBox {
     -fx-effect: dropshadow(gaussian, baseDarkLight, 5, 0, 0, 0);
+    -fx-opacity: 0.9;
 }
-.card-tile:pressed > VBox {
-    -fx-background-color: baseDarkMid;
+.card:pressed > VBox {
     -fx-effect: dropshadow(gaussian, baseDarkMid, 5, 0, 0, 0);
+        -fx-opacity: 0.8;
 }
 /* ---------------------------- */
+
+.notification-bar > .pane {
+    -fx-background-color: baseDark ;
+    -fx-padding: 15;
+    -fx-text-fill: baseText;
+}
+.notification-bar > .pane .title {
+    -fx-padding: 0 0 10 0;
+    -fx-text-fill: baseText;
+    -fx-font-weight: bold;
+}
+.notification-bar > .pane .label {
+    -fx-text-fill: baseText;
+    -fx-alignment: top-left;
+}
+.notification-bar > .pane .close-button:hover {
+    -fx-background-color: baseDarkLight;
+}
+.notification-bar > .pane .close-button:pressed {
+    -fx-background-color: baseDarkMid;
+}
 
 
 /* ---------- Titled Pane ---------- */

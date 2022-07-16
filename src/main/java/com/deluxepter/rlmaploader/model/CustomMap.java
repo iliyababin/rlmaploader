@@ -1,16 +1,18 @@
 package com.deluxepter.rlmaploader.model;
 
+import com.deluxepter.rlmaploader.RlMapLoader;
+import javafx.scene.image.Image;
 import org.apache.commons.io.FilenameUtils;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 
 public class CustomMap {
     private String name;
-    private File imageFile;
+    private Image image;
     private File udkFile;
 
     public CustomMap() {
+        image = new Image(RlMapLoader.class.getResourceAsStream("placeholder.png"));
     }
 
     public String getName() {
@@ -21,15 +23,13 @@ public class CustomMap {
         this.name = name;
     }
 
-    public File getImageFile() {
-        return imageFile;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImageFile(File imageFile) {
-        try {
-            if (ImageIO.read(imageFile) != null)
-                this.imageFile = imageFile;
-        } catch (Exception e) {
+    public void setImage(Image image) {
+        if (!image.isError()) {
+            this.image = image;
         }
     }
 

@@ -1,22 +1,15 @@
 package com.deluxepter.rlmaploader.util;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.text.MessageFormat;
-import java.util.*;
-import java.util.concurrent.Callable;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-/**
- * I18N utility class..
- */
 public final class I18N {
-
-    /**
-     * the current selected Locale.
-     */
     private static final ObjectProperty<Locale> locale;
 
     static {
@@ -24,30 +17,13 @@ public final class I18N {
         locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
     }
 
-    /**
-     * get the supported Locales.
-     *
-     * @return List of Locale objects.
-     */
-    public static List<Locale> getSupportedLocales() {
-        return new ArrayList<>(Arrays.asList(
+    public static ObservableList<Locale> getSupportedLocales() {
+        return FXCollections.observableArrayList(Arrays.asList(
                 new Locale("en", "US"),
-                new Locale("ru", "RU")));
+                new Locale("ru", "RU"),
+                new Locale("es", "CO")));
     }
 
-    public static Map<String, Locale> getSupportedLocalesMap() {
-        Map<String, Locale> localeMap = new HashMap<String, Locale>();
-        for (Locale item : I18N.getSupportedLocales()) {
-            localeMap.put(item.toString(), item);
-        }
-        return localeMap;
-    }
-
-    /**
-     * get the default locale. This is the systems default if contained in the supported locales, english otherwise.
-     *
-     * @return default locale
-     */
     public static Locale getDefaultLocale() {
         Locale sysDefault = Locale.getDefault();
         return getSupportedLocales().contains(sysDefault) ? sysDefault : new Locale("en", "US");
@@ -66,36 +42,7 @@ public final class I18N {
         return locale;
     }
 
-    /**
-     * gets the string with the given key from the resource bundle for the current locale and uses it as first argument
-     * to MessageFormat.format, passing in the optional args and returning the result.
-     *
-     * @param key  message key
-     * @param args optional arguments for the message
-     * @return localized formatted string
-     */
-    public static String get(final String key, final Object... args) {
-        ResourceBundle bundle = ResourceBundle.getBundle("com.deluxepter.rlmaploader.lang.lb", getLocale());
-        return MessageFormat.format(bundle.getString(key), args);
-    }
-
-    /**
-     * creates a String binding to a localized String for the given message bundle key
-     *
-     * @param key key
-     * @return String binding
-     */
-    public static StringBinding createStringBinding(final String key, Object... args) {
-        return Bindings.createStringBinding(() -> get(key, args), locale);
-    }
-
-    /**
-     * creates a String Binding to a localized String that is computed by calling the given func
-     *
-     * @param func function called on every change
-     * @return StringBinding
-     */
-    public static StringBinding createStringBinding(Callable<String> func) {
-        return Bindings.createStringBinding(func, locale);
+    public static ResourceBundle getBundle() {
+        return ResourceBundle.getBundle("com.deluxepter.rlmaploader.lang.lb", getLocale());
     }
 }

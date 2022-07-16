@@ -1,34 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="721.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deluxepter.rlmaploader.controller.DashboardController">
-   <children>
-      <MenuBar>
-        <menus>
-          <Menu fx:id="mapMenu" mnemonicParsing="false" text="Map">
-            <items>
-              <MenuItem fx:id="importMenuItem" mnemonicParsing="false" text="Import" />
-                  <MenuItem fx:id="deleteMenuItem" mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu fx:id="helpMenu" mnemonicParsing="false" text="Help">
-            <items>
-                  <MenuItem fx:id="aboutMenuItem" mnemonicParsing="false" text="About" />
-              <MenuItem fx:id="settingsMenuItem" mnemonicParsing="false" onAction="#openSettingsDialog" text="Settings" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <content>
-            <TilePane fx:id="tilePane" prefHeight="368.0" prefWidth="719.0" />
-         </content>
-      </ScrollPane>
-   </children>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0"
+      prefWidth="665.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.deluxepter.rlmaploader.controller.DashboardController">
+    <children>
+        <BorderPane fx:id="menubackground">
+            <center>
+                <MenuBar prefHeight="27.0" prefWidth="463.0">
+                    <menus>
+                        <Menu fx:id="mapMenu" mnemonicParsing="false" text="%common.map">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#importMap" text="%common.import"/>
+                                <MenuItem mnemonicParsing="false" onAction="#reset" text="%common.reset"/>
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="%common.help">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="%common.about"/>
+                                <MenuItem mnemonicParsing="false" onAction="#openSettingsDialog"
+                                          text="%common.settings"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+            </center>
+            <right>
+                <TextField fx:id="mapSearchTextField" focusTraversable="false" onKeyReleased="#drawMaps"
+                           prefHeight="26.0" prefWidth="373.0" promptText="%common.search"
+                           BorderPane.alignment="CENTER"/>
+            </right>
+        </BorderPane>
+        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <content>
+                <TilePane fx:id="tilePane" focusTraversable="true" prefHeight="368.0" prefWidth="719.0"/>
+            </content>
+        </ScrollPane>
+    </children>
 </VBox>
