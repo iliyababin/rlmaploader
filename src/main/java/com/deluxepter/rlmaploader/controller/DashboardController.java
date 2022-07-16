@@ -1,5 +1,6 @@
 package com.deluxepter.rlmaploader.controller;
 
+import com.deluxepter.rlmaploader.RlMapLoader;
 import com.deluxepter.rlmaploader.common.Configuration;
 import com.deluxepter.rlmaploader.component.Card;
 import com.deluxepter.rlmaploader.model.CustomMap;
@@ -18,11 +19,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import net.lingala.zip4j.exception.ZipException;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.net.URL;
@@ -76,6 +81,9 @@ public class DashboardController implements Initializable {
             try {
                 CustomMapHelper.importMap(selectedFile, new File(config.getMapsDirectory()));
                 mapList.setAll(CustomMapHelper.getMaps(new File(config.getMapsDirectory())));
+                showNotification(
+                        resources.getString("notification.success"),
+                        String.format(resources.getString("notification.import.map.success"), selectedFile.getName()));
             } catch (ZipException e) {
                 new Alert(Alert.AlertType.ERROR, resources.getString("exception.invalid.zip"), ButtonType.OK).show();
             }
@@ -102,5 +110,14 @@ public class DashboardController implements Initializable {
     @FXML
     private void openAboutDialog() throws Exception {
 
+    }
+
+    private void showNotification(String title, String text) {
+        Notifications notifications = Notifications.create()
+                .title(title)
+                .text(text)
+                .graphic(new ImageView(new Image(RlMapLoader.class.getResourceAsStream("/com/deluxepter/rlmaploader/ok.png"))))
+                .hideAfter(Duration.seconds(6));
+        notifications.show();
     }
 }
