@@ -1,33 +1,24 @@
 package com.deluxepter.rlmaploader.controller;
 
-import com.deluxepter.rlmaploader.RlMapLoader;
 import com.deluxepter.rlmaploader.common.Configuration;
 import com.deluxepter.rlmaploader.component.Card;
 import com.deluxepter.rlmaploader.model.CustomMap;
 import com.deluxepter.rlmaploader.util.CustomMapHelper;
-import com.deluxepter.rlmaploader.util.I18N;
-import com.deluxepter.rlmaploader.util.ThemeManager;
+import com.deluxepter.rlmaploader.util.GUIUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import net.lingala.zip4j.exception.ZipException;
-import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.net.URL;
@@ -58,7 +49,6 @@ public class DashboardController implements Initializable {
         drawMaps();
     }
 
-    @SuppressWarnings("unchecked")
     @FXML
     private void drawMaps() {
         tilePane.getChildren().clear();
@@ -81,7 +71,7 @@ public class DashboardController implements Initializable {
             try {
                 CustomMapHelper.importMap(selectedFile, new File(config.getMapsDirectory()));
                 mapList.setAll(CustomMapHelper.getMaps(new File(config.getMapsDirectory())));
-                showNotification(
+                GUIUtils.showNotification(
                         resources.getString("notification.success"),
                         String.format(resources.getString("notification.import.map.success"), selectedFile.getName()));
             } catch (ZipException e) {
@@ -96,28 +86,21 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void openSettingsDialog() throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/deluxepter/rlmaploader/view/settings.fxml"), I18N.getBundle());
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setTitle(resources.getString("gui.settings.title"));
-        ThemeManager.themeChanger(scene);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setResizable(false);
-        stage.setScene(scene);
-        stage.show();
+        GUIUtils.load(
+                getClass().getResource("/com/deluxepter/rlmaploader/view/settings.fxml"),
+                resources.getString("gui.settings.title"),
+                Modality.APPLICATION_MODAL,
+                false
+        );
     }
 
     @FXML
     private void openAboutDialog() throws Exception {
-
-    }
-
-    private void showNotification(String title, String text) {
-        Notifications notifications = Notifications.create()
-                .title(title)
-                .text(text)
-                .graphic(new ImageView(new Image(RlMapLoader.class.getResourceAsStream("/com/deluxepter/rlmaploader/ok.png"))))
-                .hideAfter(Duration.seconds(6));
-        notifications.show();
+        GUIUtils.load(
+                getClass().getResource("/com/deluxepter/rlmaploader/view/about.fxml"),
+                resources.getString("gui.about.title"),
+                Modality.APPLICATION_MODAL,
+                false
+        );
     }
 }
