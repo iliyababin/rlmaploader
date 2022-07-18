@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="302.0"
-            prefWidth="401.0" xmlns="http://javafx.com/javafx/18"/>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="207.0" prefWidth="366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.deluxepter.rlmaploader.controller.AboutController">
+   <children>
+      <ImageView fitHeight="84.0" fitWidth="65.0" layoutX="27.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="108.0" layoutY="28.0" text="Rocket League Map Loader" wrapText="true">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="description" editable="false" layoutX="108.0" layoutY="54.0" prefHeight="130.0" prefWidth="236.0" text="A cross-platform application for importing, managing, and loading custom maps into Rocket League." wrapText="true">
+         <font>
+            <Font size="11.0" />
+         </font></TextArea>
+   </children>
+</AnchorPane>
