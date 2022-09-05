@@ -21,16 +21,15 @@ import javafx.stage.Stage;
 import net.lingala.zip4j.exception.ZipException;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     @FXML
     private TilePane tilePane;
-
     @FXML
     private Menu mapMenu;
-
     @FXML
     private TextField mapSearchTextField;
 
@@ -54,10 +53,21 @@ public class DashboardController implements Initializable {
         tilePane.getChildren().clear();
         if (mapList.isEmpty()) return;
         for (CustomMap map : mapList) {
-            if (map.getName().toLowerCase().contains(mapSearchTextField.getText().toLowerCase())) {
-                Card<CustomMap> card = new Card<>(map, map.getName(), map.getImage());
-                tilePane.getChildren().add(card);
-            }
+            if (!map.getName().toLowerCase().contains(mapSearchTextField.getText().toLowerCase())) return;
+            Card<CustomMap> card = new Card<>(map, map.getName(), map.getImage());
+            tilePane.getChildren().add(card);
+            card.setOnMousePressed(event -> {
+                if (!event.isPrimaryButtonDown()) return;
+                Card<CustomMap> test = (Card<CustomMap>) event.getSource();
+                try {
+                    CustomMapHelper.loadMap(test.getValue(), new File(config.getRlDirectory()));
+                    GUIUtils.showNotification(
+                            resources.getString("notification.success"),
+                            String.format(resources.getString("notification.import.map.success"), map.getName()));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            });
         }
     }
 

@@ -15,8 +15,7 @@ import java.util.List;
 public class CustomMapHelper {
     public static List<CustomMap> getMaps(File path) {
         List<CustomMap> list = new ArrayList<>();
-        if (getFolders(path) == null)
-            return list;
+        if (getFolders(path) == null) return list;
         for (File folder : getFolders(path)) {
             CustomMap map = new CustomMap();
             for (File file : getFiles(folder)) {
