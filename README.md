@@ -105,5 +105,5 @@ The maps are stored in the directory you selected for your Rocket League install
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - see
+This project is licensed under the [GNU General Public License v3.0](https://github.com/Deluxepter/rlmaploader/blob/master/LICENSE) - see
 the LICENSE.md file for details
