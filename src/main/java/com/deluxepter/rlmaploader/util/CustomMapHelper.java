@@ -78,4 +78,13 @@ public class CustomMapHelper {
         File udkDesktination = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk");
         FileUtils.copyFile(map.getUdkFile(), udkDesktination);
     }
+
+    public static void resetMap(File rldir) {
+        File underPassUdk = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk");
+        File underPassUdkBak = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk.bak");
+        if (!underPassUdk.exists()) {
+            throw new RuntimeException("Could not delete underpass udk");
+        }
+        underPassUdkBak.renameTo(underPassUdk);
+    }
 }

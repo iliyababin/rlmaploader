@@ -18,7 +18,7 @@
                         <Menu fx:id="mapMenu" mnemonicParsing="false" text="%common.map">
                             <items>
                                 <MenuItem mnemonicParsing="false" onAction="#importMap" text="%common.import" />
-                                <MenuItem mnemonicParsing="false" onAction="#reset" text="%common.reset" />
+                                <MenuItem mnemonicParsing="false" onAction="#resetMap" text="%common.reset" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="%common.help">

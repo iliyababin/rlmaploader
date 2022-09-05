@@ -53,7 +53,7 @@ public class DashboardController implements Initializable {
         tilePane.getChildren().clear();
         if (mapList.isEmpty()) return;
         for (CustomMap map : mapList) {
-            if (!map.getName().toLowerCase().contains(mapSearchTextField.getText().toLowerCase())) return;
+            if (!map.getName().toLowerCase().contains(mapSearchTextField.getText().toLowerCase())) continue;
             Card<CustomMap> card = new Card<>(map, map.getName(), map.getImage());
             tilePane.getChildren().add(card);
             card.setOnMousePressed(event -> {
@@ -91,7 +91,16 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
+    public void resetMap() {
+        CustomMapHelper.resetMap(new File(Configuration.getInstance().getRlDirectory()));
+        GUIUtils.showNotification(
+                resources.getString("notification.success"),
+                resources.getString("notification.reset.map.success"));
+    }
+
+    @FXML
     private void reset() {
+        
     }
 
     @FXML
