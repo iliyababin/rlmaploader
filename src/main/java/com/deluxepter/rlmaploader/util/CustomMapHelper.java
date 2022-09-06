@@ -49,23 +49,28 @@ public class CustomMapHelper {
 
 
     /**
-     * @param file   to import
+     * @param map    to import
      * @param folder destination
      * @throws ZipException
      * @apiNote no checks are performed on the validity of the map
      */
-    public static void importMap(File file, File folder) throws ZipException {
-        ZipFile zipFile = new ZipFile(file);
+    public static void importMap(File map, File folder) throws ZipException {
+        ZipFile zipFile = new ZipFile(map);
         if (!zipFile.isValidZipFile()) {
             throw new ZipException("That is not a valid zip file");
         }
-        File mapFolder = new File(folder, FilenameUtils.removeExtension(file.getName()));
+        File mapFolder = new File(folder, FilenameUtils.removeExtension(map.getName()));
         mapFolder.mkdir();
         for (FileHeader fileHeader : zipFile.getFileHeaders()) {
             zipFile.extractFile(fileHeader, mapFolder.getAbsolutePath(), new File(fileHeader.getFileName()).getName());
         }
     }
 
+    /**
+     * @param map   to load
+     * @param rldir where to load the map
+     * @throws IOException
+     */
     public static void loadMap(CustomMap map, File rldir) throws IOException {
         File underPassUdkBak = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk.bak");
         if (!underPassUdkBak.exists()) {
@@ -79,6 +84,9 @@ public class CustomMapHelper {
         FileUtils.copyFile(map.getUdkFile(), udkDesktination);
     }
 
+    /**
+     * @param rldir
+     */
     public static void resetMap(File rldir) {
         File underPassUdk = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk");
         File underPassUdkBak = new File(rldir, "/TAGame/CookedPCConsole/Labs_Underpass_P.upk.bak");

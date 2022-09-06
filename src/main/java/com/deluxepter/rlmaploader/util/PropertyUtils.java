@@ -26,6 +26,7 @@ public class PropertyUtils {
         try {
             config.setRlDirectory(properties.getProperty("rl_directory"));
         } catch (Exception e) {
+
         }
         ThemeManager.setTheme(new Theme(properties.getProperty("theme_name"), properties.getProperty("theme_file")));
         I18N.setLocale(new Locale(properties.getProperty("language"), properties.getProperty("country")));

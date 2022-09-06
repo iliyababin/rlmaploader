@@ -17,6 +17,9 @@ public final class I18N {
         locale.addListener((observable, oldValue, newValue) -> Locale.setDefault(newValue));
     }
 
+    /**
+     * @return list of supported locales
+     */
     public static ObservableList<Locale> getSupportedLocales() {
         return FXCollections.observableArrayList(Arrays.asList(
                 new Locale("en", "US"),
@@ -24,7 +27,7 @@ public final class I18N {
                 new Locale("es", "CO")));
     }
 
-    public static Locale getDefaultLocale() {
+    private static Locale getDefaultLocale() {
         Locale sysDefault = Locale.getDefault();
         return getSupportedLocales().contains(sysDefault) ? sysDefault : new Locale("en", "US");
     }

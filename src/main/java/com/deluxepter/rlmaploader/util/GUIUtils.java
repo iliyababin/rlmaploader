@@ -39,14 +39,15 @@ public class GUIUtils {
      * Opens a new stage with provided parameters.
      * Sets default theme and bundle.
      *
-     * @param FXML
+     * @param fxml
      * @param title
      * @param modality
      * @param resizable
      * @throws IOException
      */
-    public static void load(URL FXML, String title, Modality modality, boolean resizable) throws IOException {
-        Parent root = FXMLLoader.load(FXML, I18N.getBundle());
+    public static void load(String fxml, String title, Modality modality, boolean resizable) throws IOException {
+        URL fxmlURL = GUIUtils.class.getResource(String.format("/com/deluxepter/rlmaploader/view/%s", fxml));
+        Parent root = FXMLLoader.load(fxmlURL, I18N.getBundle());
         Scene scene = new Scene(root);
         ThemeManager.themeChanger(scene);
         Stage stage = new Stage();

@@ -11,6 +11,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
 
+/**
+ * Card component with image and title
+ *
+ * @param <T>
+ */
 public class Card<T> extends Group {
     private ObjectProperty<T> value = new SimpleObjectProperty(this, "value");
     private int width = 200;

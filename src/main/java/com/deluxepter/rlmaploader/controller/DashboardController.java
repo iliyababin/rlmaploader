@@ -18,7 +18,6 @@ import javafx.scene.layout.TilePane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import net.lingala.zip4j.exception.ZipException;
 
 import java.io.File;
 import java.io.IOException;
@@ -77,16 +76,14 @@ public class DashboardController implements Initializable {
         fileChooser.setTitle(resources.getString("dialog.import.map"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(resources.getString("common.zip.file"), "*.zip"));
         File selectedFile = fileChooser.showOpenDialog(new Stage());
-        if (selectedFile.exists() && selectedFile.isFile()) {
-            try {
-                CustomMapHelper.importMap(selectedFile, new File(config.getMapsDirectory()));
-                mapList.setAll(CustomMapHelper.getMaps(new File(config.getMapsDirectory())));
-                GUIUtils.showNotification(
-                        resources.getString("notification.success"),
-                        String.format(resources.getString("notification.import.map.success"), selectedFile.getName()));
-            } catch (ZipException e) {
-                new Alert(Alert.AlertType.ERROR, resources.getString("exception.invalid.zip"), ButtonType.OK).show();
-            }
+        try {
+            CustomMapHelper.importMap(selectedFile, new File(config.getMapsDirectory()));
+            mapList.setAll(CustomMapHelper.getMaps(new File(config.getMapsDirectory())));
+            GUIUtils.showNotification(
+                    resources.getString("notification.success"),
+                    String.format(resources.getString("notification.import.map.success"), selectedFile.getName()));
+        } catch (Exception e) {
+            new Alert(Alert.AlertType.ERROR, resources.getString("exception.invalid.zip"), ButtonType.OK).show();
         }
     }
 
@@ -99,14 +96,9 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    private void reset() {
-        
-    }
-
-    @FXML
     private void openSettingsDialog() throws Exception {
         GUIUtils.load(
-                getClass().getResource("/com/deluxepter/rlmaploader/view/settings.fxml"),
+                "settings.fxml",
                 resources.getString("gui.settings.title"),
                 Modality.APPLICATION_MODAL,
                 false
@@ -116,7 +108,7 @@ public class DashboardController implements Initializable {
     @FXML
     private void openAboutDialog() throws Exception {
         GUIUtils.load(
-                getClass().getResource("/com/deluxepter/rlmaploader/view/about.fxml"),
+                "about.fxml",
                 resources.getString("gui.about.title"),
                 Modality.APPLICATION_MODAL,
                 false

@@ -27,7 +27,7 @@ public class RlMapLoader extends Application {
     public void start(Stage stage) throws Exception {
         GUIUtils.installIcons(new Image(RlMapLoader.class.getResourceAsStream("icon.png")));
         GUIUtils.load(
-                getClass().getResource("/com/deluxepter/rlmaploader/view/dashboard.fxml"),
+                "dashboard.fxml",
                 I18N.getBundle().getString("gui.dashboard.title"),
                 Modality.NONE,
                 true
