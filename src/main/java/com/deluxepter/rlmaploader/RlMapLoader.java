@@ -10,7 +10,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * TODO: clean up code and log info/errors
+ * TODO: spring for injection
+ */
 public class RlMapLoader extends Application {
     private static final PropertyUtils propertyUtils = new PropertyUtils();
 
